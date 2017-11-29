@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ 						http://www.springframework.org/schema/tx
+       					http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       					http://www.springframework.org/schema/aop
+       					http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+  						http://www.springframework.org/schema/context
+           				http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:component-scan base-package="cn.gc80*" />
+	<context:property-placeholder location="classpath:/jdbc.properties" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>${dataSource.driverClassName}</value>
+		</property>
+		<property name="username">
+			<value>${dataSource.username} </value>
+		</property>
+		<property name="password">
+			<value>${dataSource.password} </value>
+		</property>
+		<property name="url">
+			<value>${dataSource.url}</value>
+		</property>
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${dataSource.dialect}</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">${dataSource.hbm2ddl.auto}</prop> -->
+				<prop key="hibernate.show_sql">${dataSource.show_sql}</prop>
+				<prop key="hibernate.query.factory_class">${dataSource.query.factory_class}</prop>
+				<prop key="hibernate.cache.provider_class">${dataSource.cache.provider_class}</prop>
+				<prop key="hibernate.cache.use_query_cache">${dataSource.cache.use_query_cache}</prop>
+				<prop key="hibernate.use_outer_join">${dataSource.use_outer_join}</prop>
+				<prop key="hibernate.jdbc.fetch_size">${dataSource.jdbc.fetch_size}</prop>
+				<prop key="hibernate.jdbc.batch_size">${dataSource.jdbc.batch_size}</prop>
+				<prop key="hibernate.connection.autocommit">${dataSource.connection.autocommit}</prop>
+                <prop key="hibernate.connection.release_mode">${dataSource.connection.release_mode}</prop>                      
+                <prop key="hibernate.autoReconnect">${dataSource.autoReconnect}</prop>
+                <prop key="hibernate.cglib.use_reflection_optimizer">${dataSource.use_reflection_optimizer}</prop>
+                <prop key="hibernate.default_schema">${dataSource.default_schema}</prop>   
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 配置事务管理器 -->  
+	 <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">  
+	    <property name="sessionFactory" ref="sessionFactory" />  
+	  </bean>  
+	 
+	 <!--配置事物回滚-->
+	 <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+		<tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+		<tx:method name="del*" propagation="REQUIRED"    read-only="false" rollback-for="java.lang.RuntimeException" />
+		<tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+		<tx:method name="add*" propagation="REQUIRED"    read-only="false" rollback-for="java.lang.RuntimeException" />
+		<tx:method name="create*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+		<tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
+		<tx:method name="find*"   propagation="SUPPORTS"  read-only="true"/>
+		<tx:method name="get*"    propagation="SUPPORTS"  read-only="true"/>
+		<tx:method name="select*" propagation="SUPPORTS"  read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 定义事务入口 -->  
+	<aop:config>  
+	    <aop:pointcut id="allDaoMethod" expression="execution(* cn.gc80*.*(..))" />  
+	    <aop:advisor advice-ref="txAdvice" pointcut-ref="allDaoMethod" />  
+	</aop:config>  
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--配置一个JdbcTemplate实例 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+</beans>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.gc80.datamodel.business.EOrderInvoice" table="LRN_ORDER_INVOICE">
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="sysUser" class="cn.gc80.datamodel.sysbase.SysUser" fetch="select" lazy="false">
+            <column name="USER_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="address" class="cn.gc80.datamodel.business.EUserAddress" fetch="select" lazy="false">
+            <column name="ADDRESS_ID" length="32" />
+        </many-to-one>
+        <property name="invoiceProject" type="java.lang.String">
+            <column name="INVOICE_PROJECT" length="50" />
+        </property>
+        <property name="invoiceTitle" type="java.lang.String">
+            <column name="INVOICE_TITLE" length="50" />
+        </property>
+        <property name="invoiceNo" type="java.lang.String">
+            <column name="INVOICE_NO" length="50" />
+        </property>
+        <property name="expressNo" type="java.lang.String">
+            <column name="EXPRESS_NO" length="50" />
+        </property>
+        <property name="expressCom" type="java.lang.String">
+            <column name="EXPRESS_COM" length="50" />
+        </property>
+        <property name="invoiceOrdno" type="java.lang.String">
+            <column name="INVOICE_ORDNO" length="500" />
+        </property>
+        <property name="invoiceTime" type="java.lang.String">
+            <column name="INVOICE_TIME" length="32"/>
+        </property>
+        <property name="invoicePrice" type="java.lang.Double">
+            <column name="INVOICE_PRICE" length="10" not-null="true"/>
+        </property>
+        <property name="billAmount" type="java.lang.Long">
+            <column name="BILL_AMOUNT" length="3" not-null="true"/>
+        </property>
+        <property name="invoiceState" type="java.lang.String">
+            <column name="INVOICE_STATE" length="2" not-null="false"/>
+        </property>
+        <property name="invoiceType" type="java.lang.String">
+            <column name="INVOICE_TYPE" length="2" not-null="false"/>
+        </property>
+        <property name="invoicePost" type="java.lang.String">
+            <column name="INVOICE_POST" length="2" not-null="false"/>
+        </property>
+        <property name="ordNo" type="java.lang.String">
+            <column name="ORD_NO" length="100" />
+        </property>
+        <property name="ordStatus" type="java.lang.String">
+            <column name="ORD_STATUS" length="9"  />
+        </property>
+        <property name="ordPaytype" type="java.lang.String">
+            <column name="ORD_PAYTYPE" length="2" />
+        </property>
+        <property name="ordPaytime" type="java.lang.String">
+            <column name="ORD_PAYTIME" length="32" />
+        </property>
+        <property name="ordMoneysum" type="java.lang.Double">
+            <column name="ORD_MONEYSUM" precision="18" not-null="true" />
+        </property>
+        
+	    <property name="invoiceBatch" type="java.lang.String">
+            <column name="INVOICE_BATCH" length="50" >
+            <comment>发票批次</comment>
+            </column>
+        </property>
+        <property name="invoiceHeader" type="java.lang.String">
+            <column name="INVOICE_HEADER" length="100" >
+           		<comment>发票抬头</comment>
+            </column>
+        </property>
+        <property name="leadState" type="java.lang.String">
+            <column name="LEAD_STATE" length="2" >
+            	<comment>代领状态</comment>
+            </column>
+       </property>
+        <many-to-one name="sysUserLead" class="cn.gc80.datamodel.sysbase.SysUser" fetch="select" lazy="false">
+            <column name="LEAD_PEOPLE" length="32" >
+           		<comment>代领人</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="eOrderExpress" class="cn.gc80.datamodel.business.EOrderExpress" fetch="select" lazy="false">
+            <column name="EXPRESS_ID" length="32">
+            	<comment>运单id</comment>
+            </column>
+        </many-to-one>
+        <property name="createTime" type="java.lang.String">
+            <column name="CREATETIME" length="50">
+           	<comment>创建时间</comment>
+            </column>
+        </property>
+        <property name="delflag" type="java.lang.String">
+            <column name="DELFLAG" length="2">
+            	<comment>删除标志</comment>
+            </column>
+        </property>
+        
+        <property name="printTime" type="java.lang.String">
+            <column name="PRINT_TIME" length="50">
+           		<comment>打印时间</comment>
+            </column>
+        </property>
+        
+        <property name="receive" type="java.lang.String">
+            <column name="RECEIVE" length="4">
+           		<comment>领取方式</comment>
+            </column>
+        </property>
+        
+        <property name="identifyNum" type="java.lang.String">
+            <column name="IDENTIFY_NUM" length="20">
+           		 <comment>纳税人识别号</comment>
+            </column>
+        </property>
+        
+    </class>
+</hibernate-mapping>

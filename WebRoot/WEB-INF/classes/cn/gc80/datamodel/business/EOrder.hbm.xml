@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.gc80.datamodel.business.EOrder" table="LRN_E_ORDER">
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="sysUser" class="cn.gc80.datamodel.sysbase.SysUser" fetch="select" lazy="false">
+            <column name="USER_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="freight" class="cn.gc80.datamodel.business.EFreight" fetch="select" lazy="false">
+            <column name="FGT_TYPE" length="32" />
+        </many-to-one>
+        <many-to-one name="sysCard" class="cn.gc80.datamodel.sysbase.SysCard" fetch="select" lazy="false">
+            <column name="CARD_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="address" class="cn.gc80.datamodel.business.EUserAddress" fetch="select" lazy="false">
+            <column name="ADDRESS_ID" length="32" />
+        </many-to-one>
+        
+        <many-to-one name="OrdRefundPerson" class="cn.gc80.datamodel.sysbase.SysAdmin" fetch="select" lazy="false">
+            <column name="ORD_REFUND_PERSON" length="32" >
+            	<comment>退款人</comment>
+            </column>
+        </many-to-one>
+        
+        <property name="ordNo" type="java.lang.String">
+            <column name="ORD_NO" length="100" not-null="true" />
+        </property>
+        <property name="ordTempNo" type="java.lang.String">
+            <column name="ORD_TEMP_NO" length="1000" not-null="true" />
+        </property>
+        <property name="ordStatus" type="java.lang.String">
+            <column name="ORD_STATUS" length="2" not-null="true" />
+        </property>
+        <property name="ordPaytype" type="java.lang.String">
+            <column name="ORD_PAYTYPE" length="4" />
+        </property>
+        <property name="ordPaytime" type="java.lang.String">
+            <column name="ORD_PAYTIME" length="32" />
+        </property>
+        <property name="ordMoneysum" type="java.lang.Double">
+            <column name="ORD_MONEYSUM" precision="18" not-null="true" />
+        </property>
+        <property name="ordOffers" type="java.lang.Double">
+            <column name="ORD_OFFERS" precision="18" not-null="true" />
+        </property>
+        <property name="ordFgtFee" type="java.lang.Long">
+            <column name="ORD_FGT_FEE" precision="22" scale="0" />
+        </property>
+        <property name="ordDiscount" type="java.lang.Long">
+            <column name="ORD_DISCOUNT" precision="22" scale="0" />
+        </property>
+        <property name="ordTotalMoney" type="java.lang.Double">
+            <column name="ORD_TOTAL_MONEY" precision="18" />
+        </property>
+        <property name="ordName" type="java.lang.String">
+            <column name="ORD_NAME" length="20" />
+        </property>
+        <property name="ordAddress" type="java.lang.String">
+            <column name="ORD_ADDRESS" length="100" />
+        </property>
+        <property name="ordPostcode" type="java.lang.String">
+            <column name="ORD_POSTCODE" length="10" />
+        </property>
+        <property name="ordEmail" type="java.lang.String">
+            <column name="ORD_EMAIL" length="50" />
+        </property>
+        <property name="ordPhone" type="java.lang.String">
+            <column name="ORD_PHONE" length="20" />
+        </property>
+        <property name="ordMobile" type="java.lang.String">
+            <column name="ORD_MOBILE" length="20" />
+        </property>
+        <property name="ordBill" type="java.lang.String">
+            <column name="ORD_BILL" length="2" />
+        </property>
+        <property name="ordCompany" type="java.lang.String">
+            <column name="ORD_COMPANY" length="100" />
+        </property>
+        <property name="ordBillType" type="java.lang.String">
+            <column name="ORD_BILL_TYPE" length="2" />
+        </property>
+        <property name="ordBillStyle" type="java.lang.String">
+        	<column name="ORD_BILL_STYLE" length="2" />
+        </property>
+        <property name="creator" type="java.lang.String">
+            <column name="CREATOR" length="32" />
+        </property>
+        <property name="lasteditor" type="java.lang.String">
+            <column name="LASTEDITOR" length="32" />
+        </property>
+        <property name="createtime" type="java.lang.String">
+            <column name="CREATETIME" length="32" />
+        </property>
+        <property name="lastedittime" type="java.lang.String">
+            <column name="LASTEDITTIME" length="32" />
+        </property>
+         <property name="ordSubmitTime" type="java.lang.String">
+            <column name="ORD_SUBMITTIME" length="32" />
+        </property>
+        <property name="delflag" type="java.lang.String">
+            <column name="DELFLAG" length="2" not-null="true" />
+        </property>
+        <property name="expressFlag" type="java.lang.String">
+            <column name="EXPRESS_FLAG" length="2" />
+        </property>
+        <property name="expressCom" type="java.lang.String">
+            <column name="EXPRESS_COM" length="50" />
+        </property>
+        <property name="expressNo" type="java.lang.String">
+            <column name="EXPRESS_NO" length="50" />
+        </property>
+        <property name="expressState" type="java.lang.String">
+            <column name="EXPRESS_STATE" length="2" />
+        </property>
+        
+        <property name="ordAccountMoney" type="java.lang.Double">
+            <column name="ORD_ACCOUNT_MONEY"   >
+            	<comment>账户金额</comment>
+            </column>
+        </property>
+        <property name="ordIntegralMoney" type="java.lang.Double">
+            <column name="ORD_INTEGRAL_MONEY" >
+            <comment>积分金额</comment>
+            </column>
+        </property>
+        
+        <property name="ordIntegral" type="java.lang.Long">
+            <column name="ORD_INTEGRAL"  >
+            	<comment>积分</comment>
+            </column>
+        </property>
+        <property name="ordPaySource" type="java.lang.String">
+            <column name="ORD_PAY_SOURCE" length="2">
+            	<comment>支付来源</comment>
+            </column>
+        </property>
+        <property name="ordType" type="java.lang.String">
+            <column name="ORD_TYPE" length="2" >
+            	<comment>订单类型，个人|代理</comment>
+            </column>
+        </property>
+        <property name="ordRefundType" type="java.lang.String">
+            <column name="ORD_REFUND_TYPE" length="2" >
+            	<comment>退款方式</comment>
+            </column>
+        </property>
+        <property name="oreRefundtime" type="java.lang.String">
+            <column name="ORD_REFUND_TIME" length="50">
+            	<comment>退款时间</comment>
+            </column>
+        </property>
+        <property name="oreRefundDesc" type="java.lang.String">
+            <column name="ORD_REFUND_DESC" length="200">
+            	<comment>退款备注</comment>
+            </column>
+        </property>
+        <property name="invoiceClainType" type="java.lang.String">
+            <column name="INVOICE_CLAIM_TYPE" length="2">
+           		 <comment>发票索取状态</comment>
+            </column>
+        </property>
+        <many-to-one name="eOrderInvoice" class="cn.gc80.datamodel.business.EOrderInvoice" fetch="join" lazy="false">
+        	<column name="INVOICE_ID" length="32">
+        		<comment>发票ID</comment>
+        	</column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

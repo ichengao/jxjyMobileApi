@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.gc80.datamodel.business.EOrderExpress" table="LRN_ORDER_EXPRESS">
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="sysUser" class="cn.gc80.datamodel.sysbase.SysUser" fetch="join" lazy="false">
+            <column name="USER_ID" length="32"/>
+        </many-to-one>
+        <property name="expressCom" type="java.lang.String">
+            <column name="EXPRESS_COM" length="32"/>
+        </property>
+        <property name="expressSerial" type="java.lang.String">
+            <column name="EXPRESS_SERIAL" length="32" />
+        </property>
+        <property name="addressId" type="java.lang.String">
+            <column name="ADDRESS_ID" length="32"/>
+        </property>
+        <property name="expressType" type="java.lang.String">
+            <column name="EXPRESS_TYPE" length="2"/>
+        </property>
+        <property name="expressNo" type="java.lang.String">
+            <column name="EXPRESS_NO" length="50"  >
+            	<comment>运单号</comment>
+            </column>
+        </property>
+        <property name="expressPayNo" type="java.lang.String">
+            <column name="EXPRESS_PAYNO" length="100"  >
+            	<comment>缴费单号</comment>
+            </column>
+        </property>
+        <property name="expressTotalMoney" type="java.lang.Double">
+            <column name="EXPRESS_TOTAL_MONEY"  >
+            	<comment>运单总金额</comment>
+            </column>
+        </property>
+        <property name="expressPrice" type="java.lang.Double">
+            <column name="EXPRESS_PRICE" >
+            	<comment>运单支付金额</comment>
+            </column>
+        </property>
+        <property name="expressPayType" type="java.lang.String">
+            <column name="EXPRESS_PAYTYPE" length="2" >
+           		 <comment>支付方式</comment>
+            </column>
+        </property>
+        <property name="expressAccountMoney" type="java.lang.Double">
+            <column name="EXPRESS_ACCOUNT_MONEY" >
+            	<comment>账户金额</comment>
+            </column>
+        </property>
+        <property name="expressIntegralMoney" type="java.lang.Double">
+            <column name="EXPRESS_INTEGRAL_MONEY" >
+            	<comment>积分金额</comment>
+            </column>
+        </property>
+        <property name="expressIntegral" type="java.lang.Long">
+            <column name="EXPRESS_INTEGRAL" >
+            	<comment>积分</comment>
+            </column>
+        </property>
+        <property name="expressPaySource" type="java.lang.String">
+            <column name="EXPRESS_PAY_SOURCE" length="32" >
+            	<comment>支付来源</comment>
+            </column>
+        </property>
+        <property name="expressState" type="java.lang.String">
+            <column name="EXPRESS_STATE" length="2" >
+           		 <comment>支付状态</comment>
+            </column>
+        </property>
+        <property name="lodisticeNo" type="java.lang.String">
+            <column name="LOGISTICE_NO" length="50"  >
+            	<comment>物流号</comment>
+            </column>
+        </property>
+        <property name="lodisticeState" type="java.lang.String">
+            <column name="LOGISTICE_STATE" length="50"  >
+            	<comment>物流状态</comment>
+            </column>
+        </property>
+        <property name="createTime" type="java.lang.String">
+            <column name="CREATETIME" length="50" >
+            	<comment>创建时间</comment>
+            </column>
+        </property>
+        <property name="delflag" type="java.lang.String">
+            <column name="DELFLAG" length="32" >
+            	<comment>删除标志</comment>
+            </column>
+        </property>
+        <property name="expressPayTime" type="java.lang.String">
+            <column name="EXPRESS_PAYTIME" length="50" >
+           		 <comment>支付时间</comment>
+            </column>
+        </property>
+         <property name="lodisticeTime" type="java.lang.String">
+            <column name="LOGISTICE_TIME" length="50"  >
+            	<comment>发货时间</comment>
+            </column>
+        </property>
+        <property name="addressName" type="java.lang.String">
+            <column name="ADDRESS_NAME" length="20"  >
+            	<comment>收件人</comment>
+            </column>
+        </property>
+        <property name="addressPhone" type="java.lang.String">
+            <column name="ADDRESS_PHONE" length="11" >
+            	<comment>收件人号码</comment>
+            </column>
+        </property>
+        <property name="addressArea" type="java.lang.String">
+            <column name="ADDRESS_AREA" length="10" >
+            	<comment>收件人区域</comment>
+            </column>
+        </property>
+        <property name="addressDesc" type="java.lang.String">
+            <column name="ADDRESS_DESC" length="200" >
+           		 <comment>收件人地址详细信息</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
